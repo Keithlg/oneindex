@@ -119,3 +119,18 @@ php one.php token:refresh
 ```
 php one.php upload:file 本地文件 [onedrive文件]
 ```
+修改url结构，默认所有的url都包含“/?/”，看着有些不爽，可以在后台基本设置中选择去掉“/?/”，但需要配合伪静态一起使用，nginx的伪静态如下：
+
+```
+if (!-f $request_filename){
+  set $rule_0 1$rule_0;
+}
+if (!-d $request_filename){
+  set $rule_0 2$rule_0;
+}
+if ($rule_0 = "21"){
+  rewrite ^/(.*) /?/$1 last;
+} 
+```
+
+好了，基本就这样，我按此配置很顺畅。
